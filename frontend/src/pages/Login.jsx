@@ -8,7 +8,6 @@ export default function Login() {
   const [devEmail, setDevEmail] = useState('student@example.com');
   const [devName, setDevName] = useState('Student');
 
-  // ✅ New: Email/password login
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 

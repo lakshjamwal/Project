@@ -17,7 +17,6 @@ const issue = (res, user) => {
   });
 };
 
-// ✅ New: Email/password signup
 router.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -37,7 +36,6 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// ✅ New: Email/password login
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -59,7 +57,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Google login (unchanged)
 router.post('/google', async (req, res) => {
   try {
     const { idToken } = req.body;
@@ -84,7 +81,6 @@ router.post('/google', async (req, res) => {
   }
 });
 
-// Dev bypass (unchanged)
 router.post('/dev-login', async (req, res) => {
   try {
     if (process.env.DEV_BYPASS_AUTH !== 'true') return res.status(403).json({ message: 'Dev bypass disabled' });

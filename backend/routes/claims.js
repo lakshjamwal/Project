@@ -5,7 +5,6 @@ import { authRequired } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Create a claim
 router.post('/', authRequired, async (req, res) => {
   const { itemId, message, answer } = req.body;
   const item = await Item.findById(itemId);
@@ -17,14 +16,12 @@ router.post('/', authRequired, async (req, res) => {
   res.status(201).json(claim);
 });
 
-// Claims for items I posted (to review)
 router.get('/mine/pending', authRequired, async (req, res) => {
   const myItemIds = await Item.find({ postedBy: req.user._id }).distinct('_id');
   const claims = await Claim.find({ itemId: { $in: myItemIds }, status: 'pending' }).populate('itemId').populate('claimantId', 'name email');
   res.json(claims);
 });
 
-// Approve / reject a claim (item owner)
 router.patch('/:id', authRequired, async (req, res) => {
   const { status } = req.body; // 'approved' | 'rejected'
   const claim = await Claim.findById(req.params.id).populate('itemId');
@@ -40,7 +37,6 @@ router.patch('/:id', authRequired, async (req, res) => {
   res.json(claim);
 });
 
-// My claims
 router.get('/my', authRequired, async (req, res) => {
   const claims = await Claim.find({ claimantId: req.user._id }).populate('itemId');
   res.json(claims);
