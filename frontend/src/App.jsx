@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx'; // ✅ Added
 import DashboardLost from './pages/DashboardLost.jsx';
 import DashboardFound from './pages/DashboardFound.jsx';
 import PostLost from './pages/PostLost.jsx';
@@ -22,6 +23,7 @@ export default function App() {
       <div style={{ maxWidth: 960, margin: '0 auto', padding: 16 }}>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} /> {/* ✅ Added */}
           <Route path="/dashboard/lost" element={<PrivateRoute><DashboardLost /></PrivateRoute>} />
           <Route path="/dashboard/found" element={<PrivateRoute><DashboardFound /></PrivateRoute>} />
           <Route path="/post-lost" element={<PrivateRoute><PostLost /></PrivateRoute>} />

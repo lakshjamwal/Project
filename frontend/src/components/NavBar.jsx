@@ -17,7 +17,10 @@ export default function NavBar() {
               <button onClick={logout}>Logout</button>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link> {/* ✅ Added */}
+            </>
           )}
         </div>
       </div>

@@ -8,6 +8,20 @@ export default function Login() {
   const [devEmail, setDevEmail] = useState('student@example.com');
   const [devName, setDevName] = useState('Student');
 
+  // ✅ New: Email/password login
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+
+  const doEmailLogin = async () => {
+    try {
+      const { data } = await api.post('/auth/login', { email: loginEmail, password: loginPassword });
+      setUser(data.user);
+      window.location.href = '/dashboard/lost';
+    } catch {
+      alert('Login failed');
+    }
+  };
+
   const useGoogle = Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID);
   const devBypass = import.meta.env.VITE_DEV_BYPASS_AUTH === 'true';
 
@@ -47,10 +61,21 @@ export default function Login() {
   return (
     <div style={{ maxWidth: 420, margin: '48px auto' }}>
       <h2>Login</h2>
-      {useGoogle && <>
-        <div ref={googleBtn}></div>
-        <div style={{ margin: '12px 0', color: '#666' }}>or</div>
-      </>}
+
+      {/* ✅ Email/password login */}
+      <div style={{ border: '1px solid #ddd', padding: 12, borderRadius: 8, marginBottom: 12 }}>
+        <div style={{ fontWeight: 600, marginBottom: 8 }}>Email Login</div>
+        <input placeholder="Email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} />
+        <input type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
+        <button onClick={doEmailLogin} style={{ marginTop: 8 }}>Login</button>
+      </div>
+
+      {useGoogle && (
+        <>
+          <div ref={googleBtn}></div>
+          <div style={{ margin: '12px 0', color: '#666' }}>or</div>
+        </>
+      )}
 
       {devBypass && (
         <div style={{ border: '1px solid #ddd', padding: 12, borderRadius: 8 }}>
